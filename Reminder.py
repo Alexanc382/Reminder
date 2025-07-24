@@ -6,7 +6,11 @@ import os
 import time
 import pygame
 
+t = 0
+
+
 def set():
+    global t
     rem = sd.askstring('Reminder time', 'Enter the reminder-time in 24-hour format(hh:mm)')
     if rem:
         try:
@@ -20,6 +24,17 @@ def set():
             print(t)
         except Exception as e:
             mb.showerror('Error', f'Error "{e}" occurred' )
+
+
+def check():
+    global t
+    if t:
+        now = time.time()
+        if now >= t:
+            play.snd()
+            t = 0
+    window.after(10000, check)
+
 
 window = Tk()
 window.title('Reminder')
