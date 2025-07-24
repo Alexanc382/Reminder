@@ -18,9 +18,9 @@ def set():
             minute_user = int(rem.split(':')[1])
             now = datetime.datetime.now()
             print(now)
-            dt = now.replace(hour=hour_user,minute=minute_user)
+            dt = now.replace(hour=hour_user,minute=minute_user, second=0, microsecond=0)
             print(dt)
-            t = dt.fromtimestamp()
+            t = dt.timestamp()
             print(t)
         except Exception as e:
             mb.showerror('Error', f'Error "{e}" occurred' )
@@ -33,21 +33,22 @@ def check():
         if now >= t:
             play_snd()
             t = 0
-    window.after(10000, check)
+    window.after(3000, check)
 
 
 def play_snd():
-    pygame.mixer.init()
     pygame.mixer.music.load('reminder.mp3')
     pygame.mixer.music.play()
 
-
+pygame.mixer.init()
 window = Tk()
 window.title('Reminder')
 label = Label(text='Please set a reminder:', width=50, height=30)
 label.pack(pady=10)
 set_button = Button(text='set the reminder', command=set)
 set_button.pack()
+
+check()
 
 window.mainloop()
 
