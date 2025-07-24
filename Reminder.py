@@ -41,15 +41,17 @@ def play_snd():
     global music
     music = True
     pygame.mixer.music.load('reminder.mp3')
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
+
 
 
 def stop_music():
     global music
-        if music:
-            pygame.mixer.music.stop()
-            music = False
-        label.config(text='set the new remind-time')
+    if music:
+        pygame.mixer.music.stop()
+        music = False
+    label.config(text='set the new remind-time')
+
 
 pygame.mixer.init()
 window = Tk()
@@ -59,7 +61,8 @@ label = Label(text='Click the button\nbelow to set\nthe reminder time', width=30
 label.pack(pady=10)
 set_button = Button(text='set\nthe reminder', command=set, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
 set_button.pack(pady=(5, 55))
-stop_button = Button(text='stop the music', command=stop_music)
+stop_button = Button(text='stop the music', command=stop_music, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
+stop_button.pack(pady=(5, 45))
 
 check()
 
