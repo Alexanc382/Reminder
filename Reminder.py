@@ -12,27 +12,26 @@ t = 0
 music = False
 
 
-
 def set():
     global t
-    rem = sd.askstring('Reminder time', 'Enter the reminder-time in 24-hour format(hh:mm)')
+    rem = sd.askstring('Reminder time', 'Укажите время в 24-часовом формате (чч:мм)')
     if rem:
         try:
             hour_user = int(rem.split(':')[0])
             minute_user = int(rem.split(':')[1])
+            if not 0 <= hour_user <= 23 and 0 <= minute_user <= 59:
+                mb.showerror('Error', 'Такого времени не существует')
             now = datetime.datetime.now()
             print(now)
             dt = now.replace(hour=hour_user,minute=minute_user, second=0, microsecond=0)
             print(dt)
             t = dt.timestamp()
             print(t)
-            text = askstring('Text', 'Enter for why you need timer')
+            text = askstring('Text', 'Что надо сделать?')
             smile_grinning_face = chr(0x1F600)
-            label.config(text=f'TO DO {smile_grinning_face} :\n{text}\n{hour_user:02}:{minute_user:02}')
+            label.config(text=f'Не забудь {smile_grinning_face} :\n{text}\n{hour_user:02}:{minute_user:02}')
         except Exception as e:
-            mb.showerror('Error', f'Error "{e}" occurred' )
-
-
+            mb.showerror('Error', f'Ошибочка возникла: "{e}"')
 def check():
     global t
     if t:
@@ -56,18 +55,20 @@ def stop_music():
     if music:
         pygame.mixer.music.stop()
         music = False
-    label.config(text='set the new remind-time')
+    anticlockwise_open_circle_arrow = chr(0x21BA)
+    label.config(text=f'Выбери новое напоминание {anticlockwise_open_circle_arrow}')
 
 
 pygame.mixer.init()
 window = Tk()
 window.title('Reminder')
 window.config(bg='#D8BFD8')
-label = Label(text='Click the button\nbelow to set\nthe reminder time', width=30, height=10, font=('Arial', 14), bg='#ffe3f2')
+downwards_two_headed_arrow = chr(0x21A1)
+label = Label(text=f'Нажми на кнопку\nниже, чтобы выбрать\nвремя напоминания {downwards_two_headed_arrow*3}', width=30, height=10, font=('Arial', 14), bg='#ffe3f2')
 label.pack(pady=10)
-set_button = Button(text='set\nthe reminder', command=set, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
+set_button = Button(text='Тыкни\nсюда', command=set, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
 set_button.pack(pady=(5, 55))
-stop_button = Button(text='stop the music', command=stop_music, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
+stop_button = Button(text='Завершить музыку', command=stop_music, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
 stop_button.pack(pady=(5, 45))
 
 check()
