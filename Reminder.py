@@ -4,6 +4,8 @@ from tkinter import simpledialog as sd
 import datetime
 import os
 import time
+from tkinter.simpledialog import askstring
+
 import pygame
 
 t = 0
@@ -24,7 +26,9 @@ def set():
             print(dt)
             t = dt.timestamp()
             print(t)
-            label.config(text=f'Timer: {hour_user:02}:{minute_user:02}')
+            text = askstring('Text', 'Enter for why you need timer')
+            smile_grinning_face = chr(0x1F600)
+            label.config(text=f'TO DO {smile_grinning_face} :\n{text}\n{hour_user:02}:{minute_user:02}')
         except Exception as e:
             mb.showerror('Error', f'Error "{e}" occurred' )
 
@@ -65,8 +69,6 @@ set_button = Button(text='set\nthe reminder', command=set, width=20, height=2, f
 set_button.pack(pady=(5, 55))
 stop_button = Button(text='stop the music', command=stop_music, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
 stop_button.pack(pady=(5, 45))
-if check() is True:
-    label['text'] = dt
 
 check()
 
