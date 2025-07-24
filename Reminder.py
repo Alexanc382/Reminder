@@ -43,10 +43,11 @@ def play_snd():
 pygame.mixer.init()
 window = Tk()
 window.title('Reminder')
-label = Label(text='Please set a reminder:', width=50, height=30)
+window.config(bg='#D8BFD8')
+label = Label(text='Click the button\nbelow to set\nthe reminder time', width=30, height=10, font=('Arial', 14), bg='#ffe3f2')
 label.pack(pady=10)
-set_button = Button(text='set the reminder', command=set)
-set_button.pack()
+set_button = Button(text='set\nthe reminder', command=set, width=20, height=2, font=('Arial', 12), bg = '#FF69B4', fg='white')
+set_button.pack(pady=(5, 55))
 
 check()
 
